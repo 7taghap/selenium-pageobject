@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Page Object test example">
-<parameter name="appURL" value="https://www.google.co.in/"/>
+<parameter name="appURL" value="http://192.168.1.1"/>
 <parameter name="browserType" value="chrome"/>
   <test name="sample test">
     <classes>

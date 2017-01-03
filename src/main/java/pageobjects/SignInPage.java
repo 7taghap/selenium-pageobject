@@ -9,10 +9,13 @@ public class SignInPage {
 
   private WebDriver driver;
 
-  private By headerPageText = By.cssSelector(".hidden-small");
-  private By createAccountLink = By.id("link-signup");
-  private By emailTextBox = By.id("Email");
-  private By passwordTextBox = By.id("Passwd");
+  private By logout_span = By.id("logout_span");
+  private By login_button = By.id("pop_login");
+  // private By createAccountLink = By.id("link-signup");
+
+  private By username = By.id("username");
+  private By emailTextBox = By.id("password");
+  private By passwordTextBox = By.id("password");
   private By loginBtn = By.id("signIn");
   private By errorMsgTxt = By.id("errormsg_0_Passwd");
 
@@ -21,38 +24,29 @@ public class SignInPage {
   }
 
   public String getSignInPageTitle() {
-    String pageTitle = driver.getTitle();
+    WebElement user = driver.findElement(username);
+    String pageTitle = user.getText();
+    System.out.println(pageTitle);
     return pageTitle;
   }
 
-  public boolean verifySignInPageTitle() {
-    String expectedTitle = "Sign in - Google Accounts";
-    return getSignInPageTitle().contains(expectedTitle);
-  }
 
-  public boolean verifySignInPageText() {
-    WebElement element = driver.findElement(headerPageText);
-    String pageText = element.getText();
-    String expectedPageText = "Sign in with your Google Account";
-    return pageText.contains(expectedPageText);
-  }
+  // public CreateAccountPage clickonCreateAnAccount() {
+  // WebElement element = driver.findElement(createAccountLink);
+  // if (element.isDisplayed() || element.isEnabled())
+  // element.click();
+  // return new CreateAccountPage(driver);
+  // }
 
-//  public CreateAccountPage clickonCreateAnAccount() {
-//    WebElement element = driver.findElement(createAccountLink);
-//    if (element.isDisplayed() || element.isEnabled())
-//      element.click();
-//    return new CreateAccountPage(driver);
-//  }
-
-  public boolean verifySignIn() {
-    enterUserName("test");
-    enterPassword("pass");
-    clickOnSignIn();
-    return getErrorMessage().contains("incorrect");
-  }
+  // public boolean verifySignIn() {
+  // enterUserName("test");
+  // enterPassword("pass");
+  // clickOnSignIn();
+  // return getErrorMessage().contains("incorrect");
+  // }
 
   public void enterUserName(String userName) {
-    WebElement emailTxtBox = driver.findElement(emailTextBox);
+    WebElement emailTxtBox = driver.findElement(username);
     if (emailTxtBox.isDisplayed())
       emailTxtBox.sendKeys(userName);
   }
@@ -64,7 +58,7 @@ public class SignInPage {
   }
 
   public void clickOnSignIn() {
-    WebElement signInBtn = driver.findElement(loginBtn);
+    WebElement signInBtn = driver.findElement(login_button);
     if (signInBtn.isDisplayed())
       signInBtn.click();
   }
@@ -75,5 +69,10 @@ public class SignInPage {
     if (errorMsg.isDisplayed() && errorMsg.isEnabled())
       strErrorMsg = errorMsg.getText();
     return strErrorMsg;
+  }
+
+  public boolean verifySignInUser() {
+    String expectedPageTitle = "admin";
+    return getSignInPageTitle().contains(expectedPageTitle);
   }
 }

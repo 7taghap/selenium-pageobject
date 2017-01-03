@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import pageobjects.BasePage;
+import pageobjects.SignInPage;
 
 
 public class BasePageTest extends base.TestBaseSetup{
@@ -17,11 +18,22 @@ public class BasePageTest extends base.TestBaseSetup{
         driver=getDriver();
     }
     
+//    @Test
+//    public void verifyHomePage() {
+//        System.out.println("Home page test...");
+//        BasePage basePage = new BasePage(driver);
+//        Assert.assertTrue(basePage.verifyBasePageTitle(), "Home page title doesn't match");
+//    }
     @Test
-    public void verifyHomePage() {
+    public void signIn() {
         System.out.println("Home page test...");
         BasePage basePage = new BasePage(driver);
-        Assert.assertTrue(basePage.verifyBasePageTitle(), "Home page title doesn't match");
+        SignInPage signInPage = basePage.clickLogin();
+        signInPage.enterUserName("admin");
+        signInPage.enterPassword("admin");
+        signInPage.clickOnSignIn();
+        basePage = new BasePage(driver);
+        Assert.assertTrue(basePage.verifyBasePageTitle());
     }
 
 }
